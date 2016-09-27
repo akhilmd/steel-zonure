@@ -1,196 +1,123 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta charset="utf-8">
-        <title> Chat application</title>
-        <style type="text/css">
-            body 
-            {
-                background-color: #f4f4f4;
-                color: #5a5656;
-                font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-                font-size: 16px;
-                line-height: 1.5em;
-            }
-
-            a 
-            {
-                text-decoration: none;
-            }
-
-            h1
-            {
-                font-size: 1em;
-            }
-            
-            h1, p
-            {
-                margin-bottom: 10px;
-            }
-            
-            strong
-            {
-                font-weight: bold;
-            }
-            
-            .uppercase
-            {
-                text-transform: uppercase;
-            }
-            
-            #login
-            {
-                margin: 50px auto;
-                width: 300px;
-            }
-            
-            form fieldset input[type="text"], 
-            input[type="password"]
-            {
-                background-color: #e5e5e5;
-                border: none;
-                border-radius: 3px;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
-                color: #5a5656;
-                font-family: 'Open Sans',
-                    Arial,
-                    Helvetica,
-                    sans-serif;
-                font-size: 14px;
-                height: 50px;
-                outline: none;
-                padding: 0px 10px;
-                width: 280px;
-                -webkit-appearance:none;
-            }
-            
-            form fieldset input[type="submit"]
-            {
-                background-color: #008dde;
-                border: none;
-                border-radius: 3px;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
-                color: #f4f4f4;
-                cursor: pointer;
-                font-family: 'Open Sans',
-                    Arial,
-                    Helvetica,
-                    sans-serif;
-                height: 50px;
-                text-transform: uppercase;
-                width: 300px;
-                -webkit-appearance:none;
-            }
-            
-            form fieldset a
-            {
-                color: #5a5656;
-                font-size: 10px;
-            }
-            
-            form fieldset a:hover
-            {
-                text-decoration: underline;
-            }
-            
-            .btn-round
-            {
-                background-color: #5a5656;
-                border-radius: 50%;
-                -moz-border-radius: 50%;
-                -webkit-border-radius: 50%;
-                color: #f4f4f4;
-                display: block;
-                font-size: 12px;
-                height: 50px;
-                line-height: 50px;
-                margin: 30px 125px;
-                text-align: center;
-                text-transform: uppercase;
-                width: 50px;
-            }
-            
-            .facebook-before
-            {
-                background-color: #0064ab;
-                border-radius: 3px 0px 0px 3px;
-                -moz-border-radius: 3px 0px 0px 3px;
-                -webkit-border-radius: 3px 0px 0px 3px;
-                color: #f4f4f4;
-                display: block;
-                float: left;
-                height: 50px;
-                line-height: 50px;
-                text-align: center;
-                width: 50px;
-            }
-            
-            .facebook
-            {
-                background-color: #0079ce;
-                border: none;
-                border-radius: 0px 3px 3px 0px;
-                -moz-border-radius: 0px 3px 3px 0px;
-                -webkit-border-radius: 0px 3px 3px 0px;
-                color: #f4f4f4;
-                cursor: pointer;
-                height: 50px;
-                text-transform: uppercase;
-                width: 250px;
-            }
-            
-            .twitter-before
-            {
-                background-color: #189bcb;
-                border-radius: 3px 0px 0px 3px;
-                -moz-border-radius: 3px 0px 0px 3px;
-                -webkit-border-radius: 3px 0px 0px 3px;
-                color: #f4f4f4;
-                display: block;
-                float: left;
-                height: 50px;
-                line-height: 50px;
-                text-align: center;
-                width: 50px;
-            }
-            
-            .twitter
-            {
-                background-color: #1bb2e9;
-                border: none;
-                border-radius: 0px 3px 3px 0px;
-                -moz-border-radius: 0px 3px 3px 0px;
-                -webkit-border-radius: 0px 3px 3px 0px;
-                color: #f4f4f4;
-                cursor: pointer;
-                height: 50px;
-                text-transform: uppercase;
-                width: 250px;
-            }
-        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Steel Zonure</title>
+        <link rel="stylesheet" type="text/css" href="./css/login_style.css"/>
+        <script type="text/javascript" src="./js/login.js"></script>
     </head>
-    <body>
-        <div id="login">
-            <h1><strong>Welcome.</strong> Please login.</h1>
-            <form action="./chat.html" method="get">
-                <fieldset>
-                    <p><input type="text" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
-                    <p><input type="password" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
-                    <p><a href="#">Forgot Password?</a></p>
-                    <p><input type="submit" value="Login"></p>
-                </fieldset>
-            </form>
-            <p><span class="btn-round">or</span></p>
-            <p>
-                <a class="facebook-before"></a>
-                <button class="facebook">Login Using Facbook</button>
-            </p>
-            <p>
-                <a class="twitter-before"></a>
-                <button class="twitter">Login Using Twitter</button>
-            </p>
+    <body class="login">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">×</span>
+                <form onsubmit="alert('asdjsa');">
+                    <input type="text" tabindex="1"  id="user_full_name" placeholder="Full Name" name="email" class="inputtext radius1" value=""/>
+                    <input type="text" tabindex="2"  id="user_id" placeholder="user-id" name="email" class="inputtext radius1" value=""/>
+                    <input type="text" tabindex="3"  id="email" placeholder="Email" name="email" class="inputtext radius1" value=""/>
+                    <input type="password" tabindex="4" id="pass" placeholder="Password" name="pass" class="inputtext radius1" >
+                    <input type="password" tabindex="5" id="pass_rep" placeholder="Repeat Password" name="pass_rep" class="inputtext radius1" >
+                    <input type="file" tabindex="6" id="dp" name="dp"/>
+                    <input type="submit" name="reg" value="Register" />
+                </form>
+            </div>
         </div>
-        <!-- end login -->
-    </body>
-</html>
+        <!-- header starts here -->
+        <div id="facebook-Bar">
+            <div id="facebook-Frame">
+                <div id="logo"> <a href="#">Our Chat APP</a> </div>
+                <div id="header-main-right">
+                    <div id="header-main-right-nav">
+                        <form method="post" action="./chat.html" id="login_form" name="login_form">
+                            <table border="0" style="border:none">
+                                <tr>
+                                    <td ><input type="text" tabindex="1"  id="email" placeholder="Email or Phone" name="email" class="inputtext radius1" value=""></td>
+                                    <td ><input type="password" tabindex="2" id="pass" placeholder="Password" name="pass" class="inputtext radius1" ></td>
+                                    <td ><input type="submit" class="fbbutton" name="login" value="Login" /></td>
+                                    <td ><input type="button" id="myBtn" class="myBtn" value="Register" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label>
+                                        <input id="persist_box" type="checkbox" name="persistent" value="1" checked="1"/>
+                                        <span style="color:#ccc;">Keep me logged in</span></label></td>
+                                        <td><label><a href="" style="color:#ccc; text-decoration:none">forgot your password?</a></label></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- header ends here -->
+            <div>
+                <div class="section pink active" id="section1">
+                    <div class="blue left">
+                        <p><img src="./img/IMG01.png"/></p>
+                    </div>
+                    <div class="blue right">
+                        <br/><br/><br/>
+                        <p><img src="./img/a.png"/></p>
+                    </div>
+                </div>
+                <div class="section pink" id="section2">
+                    <div class="blue left">
+                        <p><img src="./img/IMG03.png"/></p>
+                    </div>
+                    <div class="blue right">
+                        <br/><br/><br/>
+                        <p><img src="./img/b.png"/></p>
+                    </div>
+                </div>
+                <div class="section pink" id="section3">
+                    <div class=" left">
+                        <p><img src="./img/IMG02.png"/></p>
+                    </div>
+                    <div class="blue right">
+                        <br/><br/><br/>
+                        <p><img src="./img/a.png"/></p>
+                    </div>
+                </div>
+                <div class="section pink" id="section4">
+                    <div class="green left">
+                        <p><img src="./img/IMG03.png"/></p>
+                    </div>
+                    <div class="blue right">
+                        <br/><br/><br/>
+                        <p><img src="./img/b.png"/></p>
+                    </div>
+                </div>
+                <div class="section pink" id="section5">
+                    <div class="red left">
+                        <p><img src="./img/IMG01.png"/></p>
+                    </div>
+                    <div class="blue right">
+                        <br/><br/><br/>
+                        <p><img src="./img/a.png"/></p>
+                    </div>
+                </div>
+            </div>
+            <script>
+            var modal = document.getElementById('myModal');
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+            // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+                // When the user clicks the button, open the modal
+                btn.onclick = function() {
+                modal.style.display = "block";
+                }
+                // When the user clicks on <span> (x), close the modal
+                    span.onclick = function() {
+                    modal.style.display = "none";
+                    }
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                    if (event.target == modal) {
+                    modal.style.display = "none";
+                    }
+                    }
+                    </script>
+                </body>
+            </html>
