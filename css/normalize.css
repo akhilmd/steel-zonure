@@ -106,6 +106,8 @@ sup
 img
 {
     border-style: none;
+    height: 50px;
+    width: 50px;
 }
 
 svg:not(:root)

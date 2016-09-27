@@ -1,0 +1,2 @@
+1: dp size must be independent of the image resolution. 
+    change .img in normalize.css

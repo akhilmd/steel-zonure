@@ -1,0 +1,132 @@
+img
+{
+	width: 100%;
+	height: 100%;
+}
+.header
+{
+    width: 100%;
+    height: 5%;
+    margin: 0%;
+    padding: 0%;
+}
+
+.section
+{
+    width: 100%;
+    height: 90%;
+    margin: 0%;
+    padding: 0%;
+    overflow-y: hidden;
+    display: none; 
+}
+img
+{
+	height: 200;
+	width: 200;
+}
+/*.red
+{
+    background-color: red;
+}
+
+.blue
+{
+    background-color: blue;
+}
+
+.green
+{
+    background-color: lightgreen;
+}
+
+.yellow
+{
+    background-color: yellow;
+}
+
+.pink
+{
+    background-color: pink;
+} 
+*/
+.active
+{
+    display: inline-block;
+}
+
+.left
+{
+    width:75%;
+    height:600px;
+    margin: 0%;
+    padding: 0%;
+    float: left;
+    position: relative;
+    top: 0%;
+    opacity: 1;
+
+    -webkit-animation-name: slide_up;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 0.75s; 
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+
+    animation-name: slide_up;
+    animation-timing-function: ease-out;
+    animation-duration: 0.75s; 
+    animation-iteration-count: 1;
+}
+
+/*.right
+{
+    width:50%;
+    height:600px;
+    margin: 0%;
+    padding: 0%;
+    float: right;
+    position: relative;
+    top: 0%;
+    opacity: 1;
+
+    -webkit-animation-name: slide_upr;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 0.75s; 
+    -webkit-animation-iteration-count: 1;
+
+    animation-name: slide_upr;
+    animation-timing-function: ease-out;
+    animation-duration: 0.75s; 
+    animation-iteration-count: 1;
+
+} *./
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide_up 
+{
+    0%   {top: 100%; opacity: 0;}
+    100% {top:0%; opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes slide_up 
+{
+    0%   {top: 100%; opacity: 0;}
+    100% {top: 0%; opacity: 1;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide_upr
+{
+    0%   {top: 100%; opacity: 0;}
+    15%   {top: 100%; opacity: 0;}
+    100% {top:0%; opacity: 1;}
+}
+
+/* Standard syntax */
+@keyframes slide_upr
+{
+    0%   {top: 100%; opacity: 0;}
+    15%   {top: 100%; opacity: 0;}
+    100% {top: 0%; opacity: 1;}
+}
