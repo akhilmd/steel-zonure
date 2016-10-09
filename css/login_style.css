@@ -1,0 +1,261 @@
+@font-face
+{
+    font-family: sspr;
+    src: url("../fonts/SourceSansPro-Regular.ttf");
+}
+
+@font-face
+{
+    font-family: logoFont;
+    src: url("../fonts/AlbaS.ttf");
+}
+
+@font-face
+{
+    font-family: bebas;
+    src: url("../fonts/BebasNeue.otf");
+}
+
+html,
+body
+{
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body
+{
+    font-family: sspr;
+}
+
+.header
+{
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+.logo-text
+{
+    font-family: logoFont;
+    font-size: 600%;
+    color: white;
+}
+
+.right-text
+{
+    font-family: bebas;
+    font-size: 500%;
+    color: white;
+}
+
+.navbar-form
+{
+    margin-top: 30px;
+}
+
+.navbar-default .navbar-brand
+{
+    color: white;
+    line-height: 100px;
+}
+
+.navbar-default .navbar-brand:hover
+{
+    color: white;
+}
+
+.data-section
+{
+      background: #EF5350; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient(left top, #EF5350, #B71C1C); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(bottom right, #EF5350, #B71C1C); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(bottom right, #EF5350, #B71C1C); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(to bottom right, #EF5350, #B71C1C); /* Standard syntax */
+}
+
+div.transparent
+{
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+}
+
+.btn-custom
+{ 
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #FFFFFF; 
+    background-color: rgba(0,0,0,0.0);
+    border-color: #FFFFFF; 
+    border-radius: 24px;
+    border-width: 2px;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+} 
+
+.btn-custom:hover,
+.btn-custom:active, 
+.btn-custom.active, 
+.open .dropdown-toggle.btn-custom
+{ 
+    color: #FFFFFF; 
+    background-color: rgba(0,0,0,0.25); 
+    border-color: #FFFFFF;
+    -webkit-box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 255, 255, 1);
+    box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 255, 255, 1);
+
+    -webkit-animation-name: btn-anim;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 0.35s; 
+    -webkit-animation-iteration-count: 1;
+
+    animation-name: btn-anim;
+    animation-timing-function: ease-out;
+    animation-duration: 0.35s; 
+    animation-iteration-count: 1;
+}
+
+@keyframes btn-anim 
+{
+    0%
+    {
+        -webkit-box-shadow: inset 0 0px 0px rgba(255, 255, 255, 0.0), 0 0 0px rgba(255, 255, 255, 0.0);
+        box-shadow: inset 0 0px 0px rgba(255, 255, 255, 0.0), 0 0 0px rgba(255, 255, 255, 0.0);
+    }
+    100%
+    {
+        -webkit-box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 255, 255, 1);
+        box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+.btn-custom:focus
+{ 
+    color: #FFFFFF; 
+    outline: 0 none;
+    background-color: rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 10px rgba(255, 255, 255, 1);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 10px rgba(255, 255, 255, 1);
+}
+
+.btn-custom:active, 
+.btn-custom.active, 
+.open .dropdown-toggle.btn-custom
+{ 
+    background-image: none; 
+} 
+
+.btn-custom.disabled, 
+.btn-custom[disabled], 
+fieldset[disabled] .btn-custom, 
+.btn-custom.disabled:hover, 
+.btn-custom[disabled]:hover, 
+fieldset[disabled] .btn-custom:hover, 
+.btn-custom.disabled:focus, 
+.btn-custom[disabled]:focus, 
+fieldset[disabled] .btn-custom:focus, 
+.btn-custom.disabled:active, 
+.btn-custom[disabled]:active, 
+fieldset[disabled] .btn-custom:active, 
+.btn-custom.disabled.active, 
+.btn-custom[disabled].active, 
+fieldset[disabled] .btn-custom.active
+{ 
+    background-color: rgba(0,0,0,0.0); 
+    border-color: #FFFFFF; 
+} 
+
+.btn-custom .badge
+{ 
+    color: #FF0000; 
+    background-color: rgba(0,0,0,0.0); 
+}
+
+.form-control:hover
+{
+    border-color: white;
+    -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 5px rgba(255, 255, 255, 1);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 5px rgba(255, 255, 255, 1);
+}
+
+.form-control:focus
+{
+    border-color: white;
+    -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 20px rgba(255, 255, 255, 1);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), 0 0 20px rgba(255, 255, 255, 1);
+}
+
+.form-control-wrong
+{
+    border-color: red;
+    border-width: 2px;
+}
+
+.section
+{
+    display: none;
+}
+
+.section.active
+{
+    display: inline-block;
+}
+
+.img-content
+{
+    width: 66%;
+    height: 100%;
+    float: left;
+}
+
+.text-content
+{
+    width: 34%;
+    height: 100%;
+    float: right;
+}
+
+/*Animations*/
+.fast
+{
+    -webkit-animation-name: slide_up;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 0.85s; 
+    -webkit-animation-iteration-count: 1;
+
+    animation-name: slide_up;
+    animation-timing-function: ease-out;
+    animation-duration: 0.85s; 
+    animation-iteration-count: 1;
+}
+
+.slow
+{
+    -webkit-animation-name: slide_upr;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 0.85s; 
+    -webkit-animation-iteration-count: 1;
+
+    animation-name: slide_upr;
+    animation-timing-function: ease-out;
+    animation-duration: 0.85s; 
+    animation-iteration-count: 1;  
+}
+
+@keyframes slide_up 
+{
+    0%   {transform: translate(0, 100%);}
+    100% {transform: translate(0, 0%);}
+}
