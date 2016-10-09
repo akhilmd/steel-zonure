@@ -2,12 +2,16 @@
 <html >
     <head>
         <meta charset="UTF-8">
-        <title>Chat Application Main Page </title>
+        <title>Chatit</title>
         <link rel="stylesheet" type="text/css" href="./css/normalize.css">
         <link rel="stylesheet" type="text/css" href="./css/style.css">
         <script type="text/javascript" src="./js/chat.js"></script>
     </head>
     <body>
+        <p>
+            Hey, <big><b><?php echo $_SESSION['user_name']; ?></b></big>. You are logged in. Try to close this browser tab and open it again. Still logged in! ;)
+        </p>
+        <a href="index.php?logout">Logout</a>
         <div class="ui">
             <div class="left-menu">
                 <form action="#" class="search">
