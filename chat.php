@@ -15,7 +15,7 @@
         <div class="ui">
             <div class="left-menu">
                 <form action="#" class="search">
-                    <input placeholder="search..." type="search" name="" id="" >
+                    <input placeholder="search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="searchValue()" onKeyUp="searchValue()">
                 </form>
                 <menu class="list-friends" id="convo_list">
                 </menu>
