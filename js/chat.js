@@ -67,18 +67,18 @@ function getMessages(conversationID)
 	var messageData  = new Array();
     messageData[0] = [
         ["Hardik", "How's the new place?", "9:41", false],
-        ["Daniel Issac", "Great! It's huge.", "9:42", false],
-        ["Daniel Issac", "So I got a roommate", "9:43", false],
+        ["Daniel Issac", "Great! It's huge.", "9:42", true],
+        ["Daniel Issac", "So I got a roommate", "9:43", true],
         ["Hardik", "What's up then?", "9:44", false],
-        ["Daniel Issac", "Annoyed.", "9:45", false],
+        ["Daniel Issac", "Annoyed.", "9:45", true],
         ["Hardik", "You have the hiccups?", "9:46", false],];
 
 	messageData[1] = [
         ["Ganesh", "How's the new place?", "9:41", false],
-        ["Daniel Issac", "Great! It's huge.", "9:42", false],
-        ["Daniel Issac", "So I got a roommate", "9:43", false],
+        ["Daniel Issac", "Great! It's huge.", "9:42", true],
+        ["Daniel Issac", "So I got a roommate", "9:43", true],
         ["Ganesh", "What's up then?", "9:44", false],
-        ["Daniel Issac", "Annoyed.", "9:45", false],
+        ["Daniel Issac", "Annoyed.", "9:45", true],
         ["Ganesh", "You have the hiccups?", "9:46", false],];
 
     for(var i = 0; i < messageData[conversationID].length; ++i)
@@ -87,7 +87,7 @@ function getMessages(conversationID)
             fromName: messageData[conversationID][i][0],
             messageText: messageData[conversationID][i][1],
             time: messageData[conversationID][i][2],
-            hasRead: messageData[conversationID][i][3]};
+            msgLocation: messageData[conversationID][i][3]};
         messsageList.push(dataObj);
     }
 
@@ -149,11 +149,14 @@ function addMessage(messageObj)
     var timeStamp = messageObj.time;
     var name = messageObj.fromName;
     var msg = messageObj.messageText;
-    var hasRead = messageObj.hasRead;
+    var msgLocation = messageObj.msgLocation;
 
     /*Creating child nodes of each message*/
     var subLI = document.createElement("LI");
-    subLI.className = "i";
+    if(msgLocation)
+        subLI.className = "right-side";
+    else
+        subLI.className = "left-side";
 
     var headDiv = document.createElement("DIV");
     headDiv.className = "head";
@@ -220,7 +223,7 @@ function toNormal(){
 	
 }
 
-function searchValue(){
+function search(){
 	//document.getElementById("texxt").value = document.getElementById("search_box").value;
 	/**
     * TODO: Maintain a more global userID
