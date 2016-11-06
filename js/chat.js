@@ -1,5 +1,5 @@
 window.onload = init;
-
+var prev;
 function init()
 {
     var userID = 2;
@@ -141,8 +141,18 @@ function delMessages(){
 function loadCovoById(i){
 	delMessages();
 	populateMessages(parseInt(i.replace(/\D/g, ''))-1);
+	clicked(document.querySelector('#' + i) )
+
 }
 
+function clicked(x)
+{
+	if(prev)
+		if(prev.style.backgroundColor == 'orange')
+			prev.style.backgroundColor = '';
+    x.style.backgroundColor = 'orange';
+    prev = x;
+}
 function addMessage(messageObj)
 {
     /*Get required data from backend*/

@@ -457,3 +457,8 @@ i.test img
      height:40px;
      border: none;
 }
+.list-friends li:hover 
+{
+    background:#e9d319;
+    color: #000;
+}
