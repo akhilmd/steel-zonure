@@ -1,12 +1,12 @@
 window.onload = init;
-
+var prev;
 function init()
 {
     var userID = 2;
 
     populateConversations(userID);
 
-    var currentConversationId = 1;
+    var currentConversationId = 0;
 
     populateMessages(currentConversationId);
 }
@@ -64,22 +64,30 @@ function getMessages(conversationID)
     *       conversation with ID=conversationID
     */
     var messsageList = new Array();
-    var messageData = [
+	var messageData  = new Array();
+    messageData[0] = [
+        ["Hardik", "How's the new place?", "9:41", false],
+        ["Daniel Issac", "Great! It's huge.", "9:42", true],
+        ["Daniel Issac", "So I got a roommate", "9:43", true],
+        ["Hardik", "What's up then?", "9:44", false],
+        ["Daniel Issac", "Annoyed.", "9:45", true],
+        ["Hardik", "You have the hiccups?", "9:46", false],];
+
+	messageData[1] = [
         ["Ganesh", "How's the new place?", "9:41", false],
-        ["Daniel Issac", "Great! It's huge.", "9:42", false],
-        ["Daniel Issac", "So I got a roommate", "9:43", false],
+        ["Daniel Issac", "Great! It's huge.", "9:42", true],
+        ["Daniel Issac", "So I got a roommate", "9:43", true],
         ["Ganesh", "What's up then?", "9:44", false],
-        ["Daniel Issac", "Annoyed.", "9:45", false],
+        ["Daniel Issac", "Annoyed.", "9:45", true],
         ["Ganesh", "You have the hiccups?", "9:46", false],];
 
-    for(var i = 0; i < messageData.length; ++i)
+    for(var i = 0; i < messageData[conversationID].length; ++i)
     {
         var dataObj = {
-            fromName: messageData[i][0],
-            messageText: messageData[i][1],
-            time: messageData[i][2],
-            hasRead: messageData[i][3]};
-
+            fromName: messageData[conversationID][i][0],
+            messageText: messageData[conversationID][i][1],
+            time: messageData[conversationID][i][2],
+            msgLocation: messageData[conversationID][i][3]};
         messsageList.push(dataObj);
     }
 
@@ -91,6 +99,7 @@ function addConversation(coversationObj)
     /*Creating Elements for each convos*/
     var subLi = document.createElement("LI");
     subLi.setAttribute("id", "conv_"+coversationObj.convId);
+	subLi.setAttribute("onclick", "loadCovoById(this.id)");
 
     var imgTag = document.createElement("IMG");
     imgTag.setAttribute("id", "dp");
@@ -111,19 +120,53 @@ function addConversation(coversationObj)
     subLi.appendChild(infoDiv);
 
     document.getElementById("convo_list").appendChild(subLi);
+	/*
+	<li id="conv_1">
+		<img id="dp" class="images" src="img/dp1.jpg">
+		<div class="info">
+			<div class="user">Hardik</div>
+		</div>
+	</li>
+	*/
+	
 }
 
+function delMessages(){
+	var parentNode = document.getElementById("mess");
+	while (parentNode.firstChild)
+		parentNode.removeChild(parentNode.firstChild);
+	
+}
+
+function loadCovoById(i){
+	delMessages();
+	populateMessages(parseInt(i.replace(/\D/g, ''))-1);
+	clicked(document.querySelector('#' + i) )
+
+}
+
+function clicked(x)
+{
+	if(prev)
+		if(prev.style.backgroundColor == 'orange')
+			prev.style.backgroundColor = '';
+    x.style.backgroundColor = 'orange';
+    prev = x;
+}
 function addMessage(messageObj)
 {
     /*Get required data from backend*/
     var timeStamp = messageObj.time;
     var name = messageObj.fromName;
     var msg = messageObj.messageText;
-    var hasRead = messageObj.hasRead;
+    var msgLocation = messageObj.msgLocation;
 
     /*Creating child nodes of each message*/
     var subLI = document.createElement("LI");
-    subLI.className = "i";
+    if(msgLocation)
+        subLI.className = "right-side";
+    else
+        subLI.className = "left-side";
 
     var headDiv = document.createElement("DIV");
     headDiv.className = "head";
@@ -154,4 +197,68 @@ function addMessage(messageObj)
     // to scroll to the bottom of the chat list
     var scroll = document.getElementById('mess');
     scroll.scrollTop = scroll.scrollHeight;
+	
+	/*
+	<li class="i">
+		<div class="head">
+			<span class="time">9:46 </span>
+			<span class="name">Ganesh</span>
+		</div>
+		<div class="message">You have the hiccups?
+		</div>
+	</li>
+	*/
+}
+
+function toBlur(){
+	
+	var itrator = document.getElementById("conv_1");
+	do{
+		itrator.setAttribute("style", "-webkit-filter: blur(5px);");
+		itrator.setAttribute("style", "filter: blur(5px);");
+	}while(itrator = itrator.nextSibling);
+	
+	//-webkit-filter: blur(5px); 
+    //filter: blur(5px);
+	
+}
+
+function toNormal(){
+	
+	var itrator = document.getElementById("conv_1");
+	do{
+		itrator.removeAttribute("style", "-webkit-filter: blur(5px);");
+		itrator.removeAttribute("style", "filter: blur(5px);");
+	}while(itrator = itrator.nextSibling);
+	
+}
+
+function search(){
+	//document.getElementById("texxt").value = document.getElementById("search_box").value;
+	/**
+    * TODO: Maintain a more global userID
+    */
+    var userID = 2;
+	var searchString = document.getElementById("search_box").value;
+	if(searchString == ''){ 
+		toBlur();
+		return;
+	}
+	
+	convoList = getConversations(userID);
+	
+    for(var i = 0; i < convoList.length; ++i){
+		if(convoList[i].name.indexOf(searchString)!== -1){
+			document.getElementById("conv_"+convoList[i].convId).removeAttribute("style", "-webkit-filter: blur(5px);");
+			document.getElementById("conv_"+convoList[i].convId).removeAttribute("style", "filter: blur(5px);");
+		}
+		else{
+			document.getElementById("conv_"+convoList[i].convId).setAttribute("style", "-webkit-filter: blur(5px);");
+			document.getElementById("conv_"+convoList[i].convId).setAttribute("style", "filter: blur(5px);");
+		}
+			
+	}
+
+	
+	
 }
