@@ -229,29 +229,42 @@ function toNormal(){
 	}while(itrator = itrator.nextSibling);
 	
 }
-
-function search(){
+function searchValue(){
 	//document.getElementById("texxt").value = document.getElementById("search_box").value;
 	/**
     * TODO: Maintain a more global userID
     */
-    var userID = 2;
+    //var userID = 2;
 	var searchString = document.getElementById("search_box").value;
 	if(searchString == ''){ 
 		toBlur();
 		return;
 	}
 	
-	convoList = getConversations(userID);
+	var convoList = new Array();
 	
+    //alert(document.getElementById("conv_1").getElementsByClassName("user")[0].innerHTML);
+    
+    parentNode = document.getElementById("convo_list");
+    
+    for(var i = 0; i < parentNode.childNodes.length; i++){
+        if(parentNode.childNodes[i].id){
+            var obj = {
+                convId: parentNode.childNodes[i].id,
+                name: parentNode.childNodes[i].getElementsByClassName("user")[0].innerHTML.toLowerCase()
+            };
+            convoList.push(obj);
+        }
+    }
+    
     for(var i = 0; i < convoList.length; ++i){
-		if(convoList[i].name.indexOf(searchString)!== -1){
-			document.getElementById("conv_"+convoList[i].convId).removeAttribute("style", "-webkit-filter: blur(5px);");
-			document.getElementById("conv_"+convoList[i].convId).removeAttribute("style", "filter: blur(5px);");
+		if(convoList[i].name.indexOf(searchString.toLowerCase())!== -1){
+			document.getElementById(convoList[i].convId).removeAttribute("style", "-webkit-filter: blur(5px);");
+			document.getElementById(convoList[i].convId).removeAttribute("style", "filter: blur(5px);");
 		}
 		else{
-			document.getElementById("conv_"+convoList[i].convId).setAttribute("style", "-webkit-filter: blur(5px);");
-			document.getElementById("conv_"+convoList[i].convId).setAttribute("style", "filter: blur(5px);");
+			document.getElementById(convoList[i].convId).setAttribute("style", "-webkit-filter: blur(5px);");
+			document.getElementById(convoList[i].convId).setAttribute("style", "filter: blur(5px);");
 		}
 			
 	}
