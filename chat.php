@@ -22,9 +22,10 @@
                         echo 'userID = "' . $_SESSION['user_id'] . '";';
                 ?>
 
+                
                 populateConversations(userID);
-
-                var currentConversationId = 0;
+                
+                var currentConversationId = parseInt(document.getElementById("convo_list").childNodes[1].id.replace( /^\D+/g, ''));
 
                 populateMessages(currentConversationId);
             }
