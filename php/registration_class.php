@@ -121,6 +121,8 @@ class Registration
                             $sql_conv = "INSERT INTO conversations (part1_id, part2_id) VALUES (" . $uid . "," . $curr_uid . ");";
                             $conv_res = $conv_conn->query($sql_conv);
                         }
+
+                        $conv_conn->close();
                     }
                     else
                     {

@@ -22,12 +22,11 @@
                         echo 'userID = "' . $_SESSION['user_id'] . '";';
                 ?>
 
-                
                 populateConversations(userID);
-                
-                var currentConversationId = parseInt(document.getElementById("convo_list").childNodes[1].id.replace( /^\D+/g, ''));
 
-                populateMessages(currentConversationId);
+                // var currentConversationId = "conv_2";
+
+                // loadCovoById(currentConversationId);
             }
         -->
     </script>
@@ -40,16 +39,16 @@
         <script type="text/javascript" src="./js/chat.js"></script>
     </head>
     <body>
-    	<br/>
+        <br/>
         <p align="center">
             Hey, <big><b> <?php echo $_SESSION['user_name']; ?>  </b></big>
-			<button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
+            <button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
         <div class="ui">
             <div class="left-menu">
                 <form action="#" class="search">
-                    <input placeholder="search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
+                    <input placeholder="Search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
                 </form>
                 <menu class="list-friends" id="convo_list">
                 </menu>
@@ -60,9 +59,9 @@
                         <img class="images" src="./img/dp3.jpg" style = "margin-top: -70px;">
                     </div>
                     <div class="info" >
-                        <div class="name" style = "margin-top: 25px;">Daniel Isaac
-                        	<a href="" onclick="prompt('Enter email id')";> <img src='./img/ic_email_black_24dp_2x.png' style = "margin-left: 380px; margin-top: -35px;"  /> </a>
+                        <div id="currentName" class="name" style = "margin-top: 25px;">Dwotm8
                         </div>
+                            <a href="" onclick="prompt('Enter email id')";> <img src='./img/ic_email_black_24dp_2x.png' style = "margin-left: 380px; margin-top: -35px;"  /> </a>
                     </div>
                     <i class="fa fa-star"></i>
                 </div>
