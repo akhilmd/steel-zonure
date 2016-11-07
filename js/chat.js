@@ -1,23 +1,43 @@
-window.onload = init;
 var prev;
-function init()
-{
-    var userID = 2;
-
-    populateConversations(userID);
-
-    var currentConversationId = 0;
-
-    populateMessages(currentConversationId);
-}
 
 function populateConversations(userID)
 {
-    var convoData = getConversations(userID);
-    for(var i = 0; i<convoData.length; ++i)
+    var convoList = new Array();
+    var convoData = [];
+    var xmlhttp = new XMLHttpRequest();
+    console.log((new Date()).getTime());
+
+    xmlhttp.onreadystatechange = function()
     {
-        addConversation(convoData[i]);
-    }
+        if (this.readyState == 4 && this.status == 200)
+        {
+            var resp = (this.responseText);
+            var convs = JSON.parse(resp);
+            
+            var  i =0;
+
+            for (i=0;i<convs["length"];++i)
+            {
+                var kk = ["img/dp2.jpg"];
+                kk.push(convs[i]["name"]);
+                kk.push(convs[i]["conv_id"]);
+                convoData.push(kk);
+            }
+
+            for(var j = 0; j < convoData.length; ++j)
+            {
+                var dataObj = {
+                    imgURL: convoData[j][0],
+                    name: convoData[j][1],
+                    convId: convoData[j][2]};
+
+                addConversation(dataObj);
+            }
+        }
+    };
+    xmlhttp.open("POST", "./php/getConversations.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("user_id="+userID);
 }
 
 function populateMessages(conversationID)
@@ -31,30 +51,7 @@ function populateMessages(conversationID)
 
 function getConversations(userID)
 {
-    /**
-    * TODO: get list of conversations from backend in which 
-    *       user with ID=userID is a participant.
-    */
-    var convoList = new Array();
-    var convoData = [
-        ["img/dp1.jpg", "Hardik", "1"],
-        ["img/dp2.jpg", "Ganesh", "2"],
-        ["img/dp3.jpg", "Daniel Issac", "3"],
-        ["img/dp4.jpg", "Gurunandan", "4"],
-        ["img/dp5.jpg", "Hiranmaya Gundu", "5"],
-        ["img/dp6.jpg", "Gavrish", "6"]];
-
-    for(var i = 0; i < convoData.length; ++i)
-    {
-        var dataObj = {
-            imgURL: convoData[i][0],
-            name: convoData[i][1],
-            convId: convoData[i][2]};
-
-        convoList.push(dataObj);
-    }
-
-    return convoList;
+    
 }
 
 function getMessages(conversationID)
