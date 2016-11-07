@@ -41,7 +41,7 @@
     <body>
         <br/>
         <p align="center">
-            Hey, <big><b> <?php echo $_SESSION['user_name']; ?>  </b></big>
+            Hey, <big><b id="user_full_name"> <?php echo $_SESSION['user_full_name']; ?>  </b></big>
             <button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
@@ -70,7 +70,7 @@
                     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
-                    <span class="send" onclick = "insertMsg()">Send</span>
+                    <span id="send_button" class="send" >Send</span>
                 </div>
             </div>
         </div>

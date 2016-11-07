@@ -13,9 +13,9 @@
 
     $userId = null;
 
-    if (isset($_POST["user_id"]))
+    if (isset($_REQUEST["user_id"]))
     {
-        $userId = $_POST["user_id"];
+        $userId = $_REQUEST["user_id"];
     }
 
     // echo $userId;
