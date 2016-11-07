@@ -1,4 +1,6 @@
 var prev=-1;
+var xhr = null;
+var toIdObj = null;
 
 function populateConversations(userID)
 {
@@ -6,6 +8,8 @@ function populateConversations(userID)
     var convoData = [];
     var xmlhttp = new XMLHttpRequest();
     console.log((new Date()).getTime());
+
+    toIdObj = new Object();
 
     xmlhttp.onreadystatechange = function()
     {
@@ -22,6 +26,7 @@ function populateConversations(userID)
                 kk.push(convs[i]["name"]);
                 kk.push(convs[i]["conv_id"]);
                 convoData.push(kk);
+                toIdObj[convs[i]["conv_id"]] = convs[i]["part1_id"]==userID?convs[i]["part2_id"]:convs[i]["part1_id"];
             }
 
             for(var j = 0; j < convoData.length; ++j)
@@ -31,9 +36,9 @@ function populateConversations(userID)
                     name: convoData[j][1],
                     convId: convoData[j][2] };
 
-                addConversation(dataObj);
+                addConversation(dataObj,userID);
             }
-            loadCovoById(document.getElementById("convo_list").childNodes[1].id);
+            loadCovoById(document.getElementById("convo_list").childNodes[1].id,userID);
         }
     };
     xmlhttp.open("POST", "./php/getConversations.php", true);
@@ -41,67 +46,57 @@ function populateConversations(userID)
     xmlhttp.send("user_id="+userID);
 }
 
-function populateMessages(conversationID)
+function populateMessages(conversationID,userID)
 {
-    var messageData = getMessages(conversationID);
-    for(var i = 0; i < messageData.length; ++i)
+    // var convoList = new Array();
+    // var convoData = [];
+    var xmlhttp = new XMLHttpRequest();
+    console.log("user_id="+userID+"&conv_id="+conversationID);
+    // console.log((new Date()).getTime());
+
+    xmlhttp.onreadystatechange = function()
     {
-        addMessage(messageData[i]);
-    }
+        if (this.readyState == 4 && this.status == 200)
+        {
+            var resp = (this.responseText);
+            // alert(resp);
+            var msgs = JSON.parse(resp);
+
+            for (var i=0;i<msgs["length"];++i)
+            {
+                // alert(msgs[i]["to_id"]);
+
+                var senderName = document.getElementById("user_full_name").innerHTML;
+                var loc = true;
+
+                if (msgs[i]["to_id"] == userID)
+                {
+                    senderName = document.getElementById("conv_"+conversationID).lastChild.lastChild.lastChild.innerHTML;
+                    loc = false;
+                }
+
+                var dataObj = {
+                    fromName: senderName,
+                    messageText: msgs[i]["msg"],
+                    time: "9:45",
+                    msgLocation: loc};
+
+                addMessage(dataObj);
+            }
+            xhr = listenForMessage(conversationID,userID);
+        }
+    };
+    xmlhttp.open("POST", "./php/getMessages.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("user_id="+userID+"&conv_id="+conversationID);
 }
 
-function getConversations(userID)
-{
-    /**
-    * TODO: GANESH, get the conversations from DOM and return stuff
-    *       Search is broken from commit 5b40384d78e57d8a976f94c27ac8b6dd4c604468
-    */
-}
-
-function getMessages(conversationID)
-{
-    /**
-    * TODO: get list of messages from backend in the
-    *       conversation with ID=conversationID
-    */
-    var messsageList = new Array();
-    var messageData  = new Array();
-    messageData[0] = [
-        ["Hardik", "How's the new place?", "9:41", false],
-        ["Daniel Issac", "Great! It's huge.", "9:42", true],
-        ["Daniel Issac", "So I got a roommate", "9:43", true],
-        ["Hardik", "What's up then?", "9:44", false],
-        ["Daniel Issac", "Annoyed.", "9:45", true],
-        ["Hardik", "You have the hiccups?", "9:46", false],];
-
-    messageData[1] = [
-        ["Ganesh", "How's the new place?", "9:41", false],
-        ["Daniel Issac", "Great! It's huge.", "9:42", true],
-        ["Daniel Issac", "So I got a roommate", "9:43", true],
-        ["Ganesh", "What's up then?", "9:44", false],
-        ["Daniel Issac", "Annoyed.", "9:45", true],
-        ["Ganesh", "You have the hiccups?", "9:46", false],];
-
-    conversationID = 0;
-    for(var i = 0; i < messageData[conversationID].length; ++i)
-    {
-        var dataObj = {
-            fromName: messageData[conversationID][i][0],
-            messageText: messageData[conversationID][i][1],
-            time: messageData[conversationID][i][2],
-            msgLocation: messageData[conversationID][i][3]};
-        messsageList.push(dataObj);
-    }
-
-    return messsageList;
-}
-
-function addConversation(coversationObj)
+function addConversation(coversationObj, userID)
 {
     /*Creating Elements for each convos*/
     var subLi = document.createElement("LI");
     subLi.setAttribute("id", "conv_"+coversationObj.convId);
-    subLi.setAttribute("onclick", "loadCovoById(this.id)");
+    subLi.setAttribute("onclick", "loadCovoById(this.id," + userID +")");
 
     var imgTag = document.createElement("IMG");
     imgTag.setAttribute("id", "dp");
@@ -113,10 +108,12 @@ function addConversation(coversationObj)
 
     var userDiv = document.createElement("DIV");
     userDiv.setAttribute("class", "user");
+    var b = document.createElement("b");
     userDiv.appendChild(document.createTextNode(coversationObj.name));
+    b.appendChild(userDiv);
 
     /*Appending Ops*/
-    infoDiv.appendChild(userDiv);
+    infoDiv.appendChild(b);
 
     subLi.appendChild(imgTag);
     subLi.appendChild(infoDiv);
@@ -133,6 +130,36 @@ function addConversation(coversationObj)
     
 }
 
+function listenForMessage(convId,userId)
+{
+    // isListening = true;
+    var xmlhttp = new XMLHttpRequest();
+    console.log((new Date()).getTime());
+    xmlhttp.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            // insertMessage(this.responseText,userId);
+
+            // alert(this.responseText);
+
+            var dataObj = {
+                fromName: document.getElementById("conv_"+convId).lastChild.lastChild.lastChild.innerHTML,
+                messageText:this.responseText,
+                time: "9:45",
+                msgLocation: false};
+
+            addMessage(dataObj);
+
+            xhr = listenForMessage(convId, userId);
+        }
+    };
+    xmlhttp.open("POST", "./php/deq.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("conv_id="+convId+"&to_id="+userId);
+    return xmlhttp;
+}
+
 function delMessages(){
     var parentNode = document.getElementById("mess");
     while (parentNode.firstChild)
@@ -140,13 +167,44 @@ function delMessages(){
     
 }
 
-function loadCovoById(i){
+function loadCovoById(i, userID){
+    if (xhr != null)
+    {
+        xhr.abort();
+    }
     delMessages();
     console.log("loading: " + i);
-    populateMessages(parseInt(i.replace(/\D/g, '')));
+    populateMessages(parseInt(i.replace(/\D/g, '')),userID);
     console.log("");
     clicked(document.getElementById(i));
-    document.getElementById("currentName").innerHTML = document.getElementById(i).lastChild.lastChild.innerHTML;
+    document.getElementById("currentName").innerHTML = document.getElementById(i).lastChild.lastChild.lastChild.innerHTML;
+    document.getElementById("send_button").onclick = function ()
+    {
+        if (document.getElementById("texxt").value.length > 0)
+        {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    // if (this.responseText == true)
+                    // {
+                        var dataObj = {
+                            fromName: document.getElementById("user_full_name").innerHTML,
+                            messageText:document.getElementById("texxt").value,
+                            time: "9:45",
+                            msgLocation: true};
+
+                        addMessage(dataObj);
+                    // }
+                }
+            };
+            xmlhttp.open("POST", "./php/enq.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // alert("conv_id="+parseInt(i.replace(/\D/g, ''))+"&to_id="+toIdObj[parseInt(i.replace(/\D/g, ''))]+"&msg="+document.getElementById("texxt").value);
+            xmlhttp.send("conv_id="+parseInt(i.replace(/\D/g, ''))+"&to_id="+toIdObj[parseInt(i.replace(/\D/g, ''))]+"&msg="+document.getElementById("texxt").value);
+        }
+    };
 }
 
 function clicked(x)
