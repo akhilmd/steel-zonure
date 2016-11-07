@@ -54,5 +54,6 @@
 
 
     echo '}';
+    $conn_log->close();
     $conn->close();
 ?>

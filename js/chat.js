@@ -1,4 +1,4 @@
-var prev;
+var prev=-1;
 
 function populateConversations(userID)
 {
@@ -18,7 +18,7 @@ function populateConversations(userID)
 
             for (i=0;i<convs["length"];++i)
             {
-                var kk = ["img/dp2.jpg"];
+                var kk = ["img/dp3.jpg"];
                 kk.push(convs[i]["name"]);
                 kk.push(convs[i]["conv_id"]);
                 convoData.push(kk);
@@ -29,10 +29,11 @@ function populateConversations(userID)
                 var dataObj = {
                     imgURL: convoData[j][0],
                     name: convoData[j][1],
-                    convId: convoData[j][2]};
+                    convId: convoData[j][2] };
 
                 addConversation(dataObj);
             }
+            loadCovoById(document.getElementById("convo_list").childNodes[1].id);
         }
     };
     xmlhttp.open("POST", "./php/getConversations.php", true);
@@ -51,7 +52,10 @@ function populateMessages(conversationID)
 
 function getConversations(userID)
 {
-    
+    /**
+    * TODO: GANESH, get the conversations from DOM and return stuff
+    *       Search is broken from commit 5b40384d78e57d8a976f94c27ac8b6dd4c604468
+    */
 }
 
 function getMessages(conversationID)
@@ -61,7 +65,7 @@ function getMessages(conversationID)
     *       conversation with ID=conversationID
     */
     var messsageList = new Array();
-	var messageData  = new Array();
+    var messageData  = new Array();
     messageData[0] = [
         ["Hardik", "How's the new place?", "9:41", false],
         ["Daniel Issac", "Great! It's huge.", "9:42", true],
@@ -70,7 +74,7 @@ function getMessages(conversationID)
         ["Daniel Issac", "Annoyed.", "9:45", true],
         ["Hardik", "You have the hiccups?", "9:46", false],];
 
-	messageData[1] = [
+    messageData[1] = [
         ["Ganesh", "How's the new place?", "9:41", false],
         ["Daniel Issac", "Great! It's huge.", "9:42", true],
         ["Daniel Issac", "So I got a roommate", "9:43", true],
@@ -78,6 +82,7 @@ function getMessages(conversationID)
         ["Daniel Issac", "Annoyed.", "9:45", true],
         ["Ganesh", "You have the hiccups?", "9:46", false],];
 
+    conversationID = 0;
     for(var i = 0; i < messageData[conversationID].length; ++i)
     {
         var dataObj = {
@@ -96,7 +101,7 @@ function addConversation(coversationObj)
     /*Creating Elements for each convos*/
     var subLi = document.createElement("LI");
     subLi.setAttribute("id", "conv_"+coversationObj.convId);
-	subLi.setAttribute("onclick", "loadCovoById(this.id)");
+    subLi.setAttribute("onclick", "loadCovoById(this.id)");
 
     var imgTag = document.createElement("IMG");
     imgTag.setAttribute("id", "dp");
@@ -117,36 +122,38 @@ function addConversation(coversationObj)
     subLi.appendChild(infoDiv);
 
     document.getElementById("convo_list").appendChild(subLi);
-	/*
-	<li id="conv_1">
-		<img id="dp" class="images" src="img/dp1.jpg">
-		<div class="info">
-			<div class="user">Hardik</div>
-		</div>
-	</li>
-	*/
-	
+    /*
+    <li id="conv_1">
+        <img id="dp" class="images" src="img/dp1.jpg">
+        <div class="info">
+            <div class="user">Hardik</div>
+        </div>
+    </li>
+    */
+    
 }
 
 function delMessages(){
-	var parentNode = document.getElementById("mess");
-	while (parentNode.firstChild)
-		parentNode.removeChild(parentNode.firstChild);
-	
+    var parentNode = document.getElementById("mess");
+    while (parentNode.firstChild)
+        parentNode.removeChild(parentNode.firstChild);
+    
 }
 
 function loadCovoById(i){
-	delMessages();
-	populateMessages(parseInt(i.replace(/\D/g, ''))-1);
-	clicked(document.querySelector('#' + i) )
-
+    delMessages();
+    console.log("loading: " + i);
+    populateMessages(parseInt(i.replace(/\D/g, '')));
+    console.log("");
+    clicked(document.getElementById(i));
+    document.getElementById("currentName").innerHTML = document.getElementById(i).lastChild.lastChild.innerHTML;
 }
 
 function clicked(x)
 {
-	if(prev)
-		if(prev.style.backgroundColor == 'orange')
-			prev.style.backgroundColor = '';
+    if(prev!=-1)
+        if(prev.style.backgroundColor == 'orange')
+            prev.style.backgroundColor = '';
     x.style.backgroundColor = 'orange';
     prev = x;
 }
@@ -194,55 +201,56 @@ function addMessage(messageObj)
     // to scroll to the bottom of the chat list
     var scroll = document.getElementById('mess');
     scroll.scrollTop = scroll.scrollHeight;
-	
-	/*
-	<li class="i">
-		<div class="head">
-			<span class="time">9:46 </span>
-			<span class="name">Ganesh</span>
-		</div>
-		<div class="message">You have the hiccups?
-		</div>
-	</li>
-	*/
+    
+    /*
+    <li class="i">
+        <div class="head">
+            <span class="time">9:46 </span>
+            <span class="name">Ganesh</span>
+        </div>
+        <div class="message">You have the hiccups?
+        </div>
+    </li>
+    */
 }
 
 function toBlur(){
-	
-	var itrator = document.getElementById("conv_1");
-	do{
-		itrator.setAttribute("style", "-webkit-filter: blur(5px);");
-		itrator.setAttribute("style", "filter: blur(5px);");
-	}while(itrator = itrator.nextSibling);
-	
-	//-webkit-filter: blur(5px); 
+    
+    var itrator = document.getElementById("conv_1");
+    do{
+        itrator.setAttribute("style", "-webkit-filter: blur(5px);");
+        itrator.setAttribute("style", "filter: blur(5px);");
+    }while(itrator = itrator.nextSibling);
+    
+    //-webkit-filter: blur(5px); 
     //filter: blur(5px);
-	
+    
 }
 
 function toNormal(){
-	
-	var itrator = document.getElementById("conv_1");
-	do{
-		itrator.removeAttribute("style", "-webkit-filter: blur(5px);");
-		itrator.removeAttribute("style", "filter: blur(5px);");
-	}while(itrator = itrator.nextSibling);
-	
+    
+    var itrator = document.getElementById("conv_1");
+    do{
+        itrator.removeAttribute("style", "-webkit-filter: blur(5px);");
+        itrator.removeAttribute("style", "filter: blur(5px);");
+    }while(itrator = itrator.nextSibling);
+    
 }
-function searchValue(){
-	//document.getElementById("texxt").value = document.getElementById("search_box").value;
-	/**
+
+function search(){
+    //document.getElementById("texxt").value = document.getElementById("search_box").value;
+    /**
     * TODO: Maintain a more global userID
     */
     //var userID = 2;
-	var searchString = document.getElementById("search_box").value;
-	if(searchString == ''){ 
-		toBlur();
-		return;
-	}
-	
-	var convoList = new Array();
-	
+    var searchString = document.getElementById("search_box").value;
+    if(searchString == ''){ 
+        toBlur();
+        return;
+    }
+    
+    var convoList = new Array();
+    
     //alert(document.getElementById("conv_1").getElementsByClassName("user")[0].innerHTML);
     
     parentNode = document.getElementById("convo_list");
@@ -258,17 +266,17 @@ function searchValue(){
     }
     
     for(var i = 0; i < convoList.length; ++i){
-		if(convoList[i].name.indexOf(searchString.toLowerCase())!== -1){
-			document.getElementById(convoList[i].convId).removeAttribute("style", "-webkit-filter: blur(5px);");
-			document.getElementById(convoList[i].convId).removeAttribute("style", "filter: blur(5px);");
-		}
-		else{
-			document.getElementById(convoList[i].convId).setAttribute("style", "-webkit-filter: blur(5px);");
-			document.getElementById(convoList[i].convId).setAttribute("style", "filter: blur(5px);");
-		}
-			
-	}
+        if(convoList[i].name.indexOf(searchString.toLowerCase())!== -1){
+            document.getElementById(convoList[i].convId).removeAttribute("style", "-webkit-filter: blur(5px);");
+            document.getElementById(convoList[i].convId).removeAttribute("style", "filter: blur(5px);");
+        }
+        else{
+            document.getElementById(convoList[i].convId).setAttribute("style", "-webkit-filter: blur(5px);");
+            document.getElementById(convoList[i].convId).setAttribute("style", "filter: blur(5px);");
+        }
+            
+    }
 
-	
-	
+    
+    
 }
