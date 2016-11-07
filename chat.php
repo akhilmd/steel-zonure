@@ -1,5 +1,35 @@
 <!DOCTYPE html>
 <html >
+    <script type="text/javascript">
+        <!--
+            <?php  
+
+            if (isset($_SESSION['user_name']))
+                echo 'var x = true;';
+            else
+                echo 'var x = false;'; ?>
+
+            if (!x)
+                window.location='./index.php';
+            console.log(x);
+
+            window.onload = init;
+            function init()
+            {
+                var userID = -1;
+                <?php  
+                    if (isset($_SESSION['user_id']))
+                        echo 'userID = "' . $_SESSION['user_id'] . '";';
+                ?>
+
+                populateConversations(userID);
+
+                var currentConversationId = 0;
+
+                populateMessages(currentConversationId);
+            }
+        -->
+    </script>
     <head>
         <meta charset="UTF-8">
         <title>Chatit</title>
@@ -11,9 +41,8 @@
     <body>
     	<br/>
         <p align="center">
-            Hey, <big><b> username <!--<?php echo $_SESSION['user_name']; ?> -->  </b></big>. You are logged in. Try to close this browser tab and open it again. Still logged in! ;)
-            &nbsp; &nbsp;
-			<button type="button" class="btn btn-primary" >LOG OUT</button>
+            Hey, <big><b> <?php echo $_SESSION['user_name']; ?>  </b></big>
+			<button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
         <div class="ui">
