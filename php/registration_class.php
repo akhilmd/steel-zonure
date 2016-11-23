@@ -81,6 +81,8 @@ class Registration
                 $user_password_hash = hash('sha512', $user_password . $salt);
 
                 $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
+
+
                 $query_check_user_name = $this->db_connection->query($sql);
 
                 if ($query_check_user_name->num_rows == 1)
@@ -93,14 +95,42 @@ class Registration
                             VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "', '" . $user_full_name . "','" . bin2hex($salt) . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
+                    // echo $sql;
                     if ($query_new_user_insert)
                     {
                         $this->messages[] = "Your account has been created successfully. You can now log in.";
+
+                        // get all user_id s
+                        // for each user_id check if there is a conversation for every other user_id
+                        // if not then create a conversation.
+
+                        $sql = "SELECT user_id FROM users WHERE user_name = '" . $user_name . "';";
+                        $usr_res = $this->db_connection->query($sql);
+                        $curr_uid = $usr_res->fetch_object()->user_id;
+
+                        $sql = "SELECT user_id FROM users;";
+                        $usr_res = $this->db_connection->query($sql);
+
+                        $conv_conn =  new mysqli('localhost', 'root', 'akhil123', 'messageDB');
+
+                        for ($i=0;$i<$usr_res->num_rows;++$i)
+                        {
+                            $uid = $usr_res->fetch_object()->user_id;
+                            if ($uid == $curr_uid)
+                                continue;
+                            $sql_conv = "INSERT INTO conversations (part1_id, part2_id) VALUES (" . $uid . "," . $curr_uid . ");";
+                            $conv_res = $conv_conn->query($sql_conv);
+                        }
+
+                        $conv_conn->close();
                     }
                     else
                     {
                         $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
                     }
+
+
+
                 }
             }
             else

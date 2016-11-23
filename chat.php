@@ -1,5 +1,35 @@
 <!DOCTYPE html>
 <html >
+    <script type="text/javascript">
+        <!--
+            <?php  
+
+            if (isset($_SESSION['user_name']))
+                echo 'var x = true;';
+            else
+                echo 'var x = false;'; ?>
+
+            if (!x)
+                window.location='./index.php';
+            console.log(x);
+
+            window.onload = init;
+            function init()
+            {
+                var userID = -1;
+                <?php  
+                    if (isset($_SESSION['user_id']))
+                        echo 'userID = "' . $_SESSION['user_id'] . '";';
+                ?>
+
+                populateConversations(userID);
+
+                // var currentConversationId = "conv_2";
+
+                // loadCovoById(currentConversationId);
+            }
+        -->
+    </script>
     <head>
         <meta charset="UTF-8">
         <title>Chatit</title>
@@ -9,17 +39,16 @@
         <script type="text/javascript" src="./js/chat.js"></script>
     </head>
     <body>
-    	<br/>
+        <br/>
         <p align="center">
-            Hey, <big><b> username <!--<?php echo $_SESSION['user_name']; ?> -->  </b></big>. You are logged in. Try to close this browser tab and open it again. Still logged in! ;)
-            &nbsp; &nbsp;
-			<button type="button" class="btn btn-primary" >LOG OUT</button>
+            Hey, <big><b id="user_full_name"> <?php echo $_SESSION['user_full_name']; ?>  </b></big>
+            <button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
         <div class="ui">
             <div class="left-menu">
                 <form action="#" class="search">
-                    <input placeholder="search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
+                    <input placeholder="Search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
                 </form>
                 <menu class="list-friends" id="convo_list">
                 </menu>
@@ -30,9 +59,9 @@
                         <img class="images" src="./img/dp3.jpg" style = "margin-top: -70px;">
                     </div>
                     <div class="info" >
-                        <div class="name" style = "margin-top: 25px;">Daniel Isaac
-                        	<a href="" onclick="prompt('Enter email id')";> <img src='./img/ic_email_black_24dp_2x.png' style = "margin-left: 380px; margin-top: -35px;"  /> </a>
+                        <div id="currentName" class="name" style = "margin-top: 25px;">Dwotm8
                         </div>
+                            <a href="" onclick="prompt('Enter email id')";> <img src='./img/ic_email_black_24dp_2x.png' style = "margin-left: 380px; margin-top: -35px;"  /> </a>
                     </div>
                     <i class="fa fa-star"></i>
                 </div>
@@ -41,7 +70,7 @@
                     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
-                    <span class="send" onclick = "insertMsg()">Send</span>
+                    <span id="send_button" class="send" >Send</span>
                 </div>
             </div>
         </div>
