@@ -1,0 +1,1 @@
+from predictive_text.server import app
