@@ -7,7 +7,7 @@
             if (isset($_SESSION['user_name']))
                 echo 'var x = true;';
             else
-                echo 'var x = false;'; ?>
+                echo 'var x = true;'; ?>
 
             if (!x)
                 window.location='./index.php';
@@ -66,7 +66,11 @@
                     <i class="fa fa-star"></i>
                 </div>
                 <ul class="messages" id="mess"></ul>
+				
                 <div class="write-form">
+					<span id="predict" class="predict1" >Send</span>
+					<span id="predict" class="predict2" >Send</span>
+					<span id="predict" class="predict3" >Send</span>
                     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
