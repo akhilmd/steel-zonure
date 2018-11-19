@@ -3,7 +3,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');?>
 <html ng-app="fosapp">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="js/angular.min.js"></script>
     <script type="text/javascript">
         <!--
             <?php  
@@ -73,16 +73,10 @@ header('Content-type: application/json');?>
                 <ul class="messages" id="mess"></ul>
 				
                 <div class="write-form"  ng-controller="fosctrl as ctrl">
-					<!-- <button ng-click="ctrl.placeorder()"/> -->
-					<span>{{ctrl.item.predict1}}</span>
-					<!--<span id="predict1" class="predict1" >{{item.predict1}}</span>-->
-					<!-- <span id="predict2" class="predict2" >{{ctrl.item.predict2}}</span> -->
-					<!-- <span id="predict3" class="predict3" >{{ctrl.item.predict3}}</span> -->
-					<!-- <span  id="predict0" class="predict1" ng-bind="item.predict0"></span> -->
 					<span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
 					<span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
 					<span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
-                    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
+                    <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-keypress="get_items(this, $event.keyCode)"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
                     <span id="send_button" class="send" >Send</span>
@@ -92,28 +86,9 @@ header('Content-type: application/json');?>
         </div>
 <script type="text/javascript">
 			var app=angular.module('fosapp',[]);
-			// app.controller('fosctrl',['$http',function($http) {
-				// this.placeorder = function() {
-					// json_send = {"1":"where", "2":"are"};
-					// $http.post("http://127.0.0.1:5000/handle_data" ,json_send).
-						// then(
-							// function success(response)
-							// {
-								// alert(response)
-							// },
-							// function error(err)
-							// {
-								// console.log(err);
-							// }
-						// );
-					// // console.log(final_orders);
-
-				// }
-			// }]);
+			
 			json_send = {"1":"where", "2":"are"};
 			app.controller('fosctrl', function($scope, $http) {
-				//$scope.item = {};
-				
 				
 				$http({
 					method : "POST",
@@ -134,8 +109,14 @@ header('Content-type: application/json');?>
 					console.log(response);
 				});
 				
-				
+				$scope.get_items = function(element, key_code) {
+					text = document.getElementById("texxt").value.split(" ")
+					console.log(text.slice(text.length-2, text.length));
+				}
 			});
+			
+			
+
 		</script>
     </body>
 </html>
