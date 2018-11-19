@@ -1,0 +1,56 @@
+<html>
+<title>
+	TEST
+</title>
+
+<body>
+	<script type="text/javascript">
+			var app=angular.module('fosapp',[]);
+			// app.controller('fosctrl',['$http',function($http) {
+				// this.placeorder = function() {
+					// json_send = {"1":"where", "2":"are"};
+					// $http.post("http://127.0.0.1:5000/handle_data" ,json_send).
+						// then(
+							// function success(response)
+							// {
+								// alert(response)
+							// },
+							// function error(err)
+							// {
+								// console.log(err);
+							// }
+						// );
+					// // console.log(final_orders);
+
+				// }
+			// }]);
+			json_send = {"1":"where", "2":"are"};
+			app.controller('fosctrl', function($scope, $http) {
+				this.item = {};
+				
+				
+				$http({
+					method : "POST",
+					url : "http://127.0.0.1:5000/handle_data",
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					transformRequest: function(obj) {
+						var str = [];
+						for(var p in obj)
+						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+						return str.join("&");
+					},
+					data:json_send
+				}).then(function mySuccess(response) {
+					this.item = response.data;
+					console.log(response.data);
+					//console.log(response.data);
+				}, function myError(response) {
+					console.log(response);
+				});
+				
+				
+			});
+		</script>
+</body>
+
+</html>
