@@ -2,7 +2,7 @@
 <?
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');?>
-<html >
+<html ng-app="fosapp">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script type="text/javascript">
         <!--
@@ -33,7 +33,8 @@ header('Content-type: application/json');?>
                 // // loadCovoById(currentConversationId);
             // }
         -->
-    </script>
+    </script>		
+	
     <head>
         <meta charset="UTF-8">
         <title>Chatit</title>
@@ -49,7 +50,7 @@ header('Content-type: application/json');?>
             <button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
-        <div class="ui" ng-app="fosapp">
+        <div class="ui" >
             <div class="left-menu">
                 <form action="#" class="search">
                     <input placeholder="Search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
@@ -72,19 +73,24 @@ header('Content-type: application/json');?>
                 <ul class="messages" id="mess"></ul>
 				
                 <div class="write-form"  ng-controller="fosctrl as ctrl">
-					<button ng-click="ctrl.placeorder()"/>
-					<span id="predict" class="predict1" >Send</span>
-					<span id="predict" class="predict2" >Send</span>
-					<span id="predict" class="predict3" >Send</span>
+					<!-- <button ng-click="ctrl.placeorder()"/> -->
+					<span>{{ctrl.item.predict1}}</span>
+					<!--<span id="predict1" class="predict1" >{{item.predict1}}</span>-->
+					<!-- <span id="predict2" class="predict2" >{{ctrl.item.predict2}}</span> -->
+					<!-- <span id="predict3" class="predict3" >{{ctrl.item.predict3}}</span> -->
+					<!-- <span  id="predict0" class="predict1" ng-bind="item.predict0"></span> -->
+					<span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
+					<span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
+					<span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
                     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
-                    <span id="send_button" class="send" ng-click="ctrl.placeorder()">Send</span>
+                    <span id="send_button" class="send" >Send</span>
 					
                 </div>
             </div>
         </div>
-		<script type="text/javascript">
+<script type="text/javascript">
 			var app=angular.module('fosapp',[]);
 			// app.controller('fosctrl',['$http',function($http) {
 				// this.placeorder = function() {
@@ -106,6 +112,9 @@ header('Content-type: application/json');?>
 			// }]);
 			json_send = {"1":"where", "2":"are"};
 			app.controller('fosctrl', function($scope, $http) {
+				//$scope.item = {};
+				
+				
 				$http({
 					method : "POST",
 					url : "http://127.0.0.1:5000/handle_data",
@@ -118,10 +127,14 @@ header('Content-type: application/json');?>
 					},
 					data:json_send
 				}).then(function mySuccess(response) {
-					console.log(response)
+					$scope.item = response.data;
+					console.log($scope.item);
+					//console.log(response.data);
 				}, function myError(response) {
 					console.log(response);
 				});
+				
+				
 			});
 		</script>
     </body>
