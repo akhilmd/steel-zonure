@@ -384,7 +384,47 @@ body
     clear: both;
     content: '';
 }
+.ui .predict1
+{
+    color: #7ac5ef;
+    cursor: pointer;
+    float: right;
+    font-weight: 700;
+    margin-right: 5%;
+    moz-user-select: none;
+    ms-user-select: none;
+    text-transform: uppercase;
+    user-select: none;
+    webkit-user-select: none;
+}
 
+.ui .predict2
+{
+    color: #7ac5ef;
+    cursor: pointer;
+    float: center;
+    font-weight: 700;
+    margin-right: 5%;
+    moz-user-select: none;
+    ms-user-select: none;
+    text-transform: uppercase;
+    user-select: none;
+    webkit-user-select: none;
+}
+
+.ui .predict3
+{
+    color: #7ac5ef;
+    cursor: pointer;
+    float: left;
+    font-weight: 700;
+    margin-right: 5%;
+    moz-user-select: none;
+    ms-user-select: none;
+    text-transform: uppercase;
+    user-select: none;
+    webkit-user-select: none;
+}
 .ui .avatar > img
 {
     border-color: #62bf6e;
