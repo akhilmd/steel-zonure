@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html >
+<?
+header('Access-Control-Allow-Origin: *');
+header('Content-type: application/json');?>
+<html ng-app="fosapp">
+    <script src="js/angular.min.js"></script>
     <script type="text/javascript">
         <!--
             <?php  
