@@ -90,28 +90,35 @@ header('Content-type: application/json');?>
 			json_send = {"1":"where", "2":"are"};
 			app.controller('fosctrl', function($scope, $http) {
 				
-				$http({
-					method : "POST",
-					url : "http://127.0.0.1:5000/handle_data",
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-					transformRequest: function(obj) {
-						var str = [];
-						for(var p in obj)
-						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-						return str.join("&");
-					},
-					data:json_send
-				}).then(function mySuccess(response) {
-					$scope.item = response.data;
-					console.log($scope.item);
-					//console.log(response.data);
-				}, function myError(response) {
-					console.log(response);
-				});
-				
 				$scope.get_items = function(element, key_code) {
-					text = document.getElementById("texxt").value.split(" ")
-					console.log(text.slice(text.length-2, text.length));
+					if(key_code == 32) {
+						text = document.getElementById("texxt").value.replace(/[^a-zA-Z ]/g, "").split(" ")
+						arr = text.filter(Boolean);
+						
+						if(arr.length > 2) {
+							var to_send = {};
+							["1", "2"].forEach((key, i) => to_send[key] = arr.slice(arr.length-2, arr.length)[i])
+							console.log(to_send)
+							$http({
+										method : "POST",
+										url : "http://127.0.0.1:5000/handle_data",
+										headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+										transformRequest: function(obj) {
+											var str = [];
+											for(var p in obj)
+											str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+											return str.join("&");
+										},
+										data:to_send
+									}).then(function mySuccess(response) {
+										$scope.item = response.data;
+										console.log($scope.item);
+										//console.log(response.data);
+									}, function myError(response) {
+										console.log(response);
+								});
+						}
+					}
 				}
 			});
 			
