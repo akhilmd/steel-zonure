@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<?
-header('Access-Control-Allow-Origin: *');
-header('Content-type: application/json');?>
 <html ng-app="fosapp">
-<script src="js/angular.min.js"></script>
-<html >
+
     <script type="text/javascript">
         <!--
             <?php  
@@ -16,8 +12,7 @@ header('Content-type: application/json');?>
             if (!x)
                 window.location='./index.php';
             console.log(x);
-
-    </script>		
+		
 	            window.onload = init;
             function init()
             {
@@ -42,6 +37,7 @@ header('Content-type: application/json');?>
         <link rel="stylesheet" type="text/css" href="./css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
         <script type="text/javascript" src="./js/chat.js"></script>
+        <script src="js/angular.min.js"></script>
     </head>
     <body>
         <br/>
