@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<?
+header('Access-Control-Allow-Origin: *');
+header('Content-type: application/json');?>
 <html >
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script type="text/javascript">
         <!--
             <?php  
@@ -13,21 +17,21 @@
                 window.location='./index.php';
             console.log(x);
 
-            window.onload = init;
-            function init()
-            {
-                var userID = -1;
-                <?php  
-                    if (isset($_SESSION['user_id']))
-                        echo 'userID = "' . $_SESSION['user_id'] . '";';
-                ?>
+            // window.onload = init;
+            // function init()
+            // {
+                // var userID = -1;
+                // <?php  
+                    // if (isset($_SESSION['user_id']))
+                        // echo 'userID = "' . $_SESSION['user_id'] . '";';
+                // ?>
 
-                populateConversations(userID);
+                // populateConversations(userID);
 
-                // var currentConversationId = "conv_2";
+                // // var currentConversationId = "conv_2";
 
-                // loadCovoById(currentConversationId);
-            }
+                // // loadCovoById(currentConversationId);
+            // }
         -->
     </script>
     <head>
@@ -45,7 +49,7 @@
             <button type="button" class="btn btn-primary" onclick="window.location='./index.php?logout=true'">LOG OUT</button>
 
        </p>
-        <div class="ui">
+        <div class="ui" ng-app="fosapp">
             <div class="left-menu">
                 <form action="#" class="search">
                     <input placeholder="Search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
@@ -67,16 +71,58 @@
                 </div>
                 <ul class="messages" id="mess"></ul>
 				
-                <div class="write-form">
+                <div class="write-form"  ng-controller="fosctrl as ctrl">
+					<button ng-click="ctrl.placeorder()"/>
 					<span id="predict" class="predict1" >Send</span>
 					<span id="predict" class="predict2" >Send</span>
 					<span id="predict" class="predict3" >Send</span>
                     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
-                    <span id="send_button" class="send" >Send</span>
+                    <span id="send_button" class="send" ng-click="ctrl.placeorder()">Send</span>
+					
                 </div>
             </div>
         </div>
+		<script type="text/javascript">
+			var app=angular.module('fosapp',[]);
+			// app.controller('fosctrl',['$http',function($http) {
+				// this.placeorder = function() {
+					// json_send = {"1":"where", "2":"are"};
+					// $http.post("http://127.0.0.1:5000/handle_data" ,json_send).
+						// then(
+							// function success(response)
+							// {
+								// alert(response)
+							// },
+							// function error(err)
+							// {
+								// console.log(err);
+							// }
+						// );
+					// // console.log(final_orders);
+
+				// }
+			// }]);
+			json_send = {"1":"where", "2":"are"};
+			app.controller('fosctrl', function($scope, $http) {
+				$http({
+					method : "POST",
+					url : "http://127.0.0.1:5000/handle_data",
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					transformRequest: function(obj) {
+						var str = [];
+						for(var p in obj)
+						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+						return str.join("&");
+					},
+					data:json_send
+				}).then(function mySuccess(response) {
+					console.log(response)
+				}, function myError(response) {
+					console.log(response);
+				});
+			});
+		</script>
     </body>
 </html>
