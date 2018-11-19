@@ -70,11 +70,15 @@ header('Content-type: application/json');?>
                     <i class="fa fa-star"></i>
                 </div>
                 <ul class="messages" id="mess"></ul>
-                <div class="write-form">
-                    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"></textarea>
+                <div class="write-form"  ng-controller="fosctrl as ctrl">
+                    <span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
+                    <span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
+                    <span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
+                    <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-keypress="get_items(this, $event.keyCode)"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
                     <span id="send_button" class="send" >Send</span>
+                    
                 </div>
             </div>
         </div>
