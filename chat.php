@@ -3,7 +3,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-type: application/json');?>
 <html ng-app="fosapp">
-	<script src="js/angular.min.js"></script>
+<script src="js/angular.min.js"></script>
+<html >
     <script type="text/javascript">
         <!--
             <?php  
@@ -11,30 +12,29 @@ header('Content-type: application/json');?>
             if (isset($_SESSION['user_name']))
                 echo 'var x = true;';
             else
-                echo 'var x = true;'; ?>
-
+                echo 'var x = false;'; ?>
             if (!x)
                 window.location='./index.php';
             console.log(x);
 
-            // window.onload = init;
-            // function init()
-            // {
-                // var userID = -1;
-                // <?php  
-                    // if (isset($_SESSION['user_id']))
-                        // echo 'userID = "' . $_SESSION['user_id'] . '";';
-                // ?>
-
-                // populateConversations(userID);
-
-                // // var currentConversationId = "conv_2";
-
-                // // loadCovoById(currentConversationId);
-            // }
-        -->
     </script>		
-	
+	            window.onload = init;
+            function init()
+            {
+                var userID = -1;
+                <?php  
+                    if (isset($_SESSION['user_id']))
+                        echo 'userID = "' . $_SESSION['user_id'] . '";';
+                ?>
+
+                populateConversations(userID);
+
+                // var currentConversationId = "conv_2";
+
+                // loadCovoById(currentConversationId);
+            }
+        -->
+    </script>
     <head>
         <meta charset="UTF-8">
         <title>Chatit</title>
@@ -51,6 +51,7 @@ header('Content-type: application/json');?>
 
        </p>
         <div class="ui" >
+
             <div class="left-menu">
                 <form action="#" class="search">
                     <input placeholder="Search..." type="search" name="" id="search_box" onfocus="toBlur()" onblur="toNormal()" onKeyPress="search()" onKeyUp="search()">
@@ -80,7 +81,6 @@ header('Content-type: application/json');?>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
                     <span id="send_button" class="send" >Send</span>
-					
                 </div>
             </div>
         </div>

@@ -77,7 +77,8 @@ class Registration
 
                 $user_full_name = $_POST['user_full_name'];
 
-                $salt = mcrypt_create_iv(15, MCRYPT_DEV_URANDOM);
+                // $salt = mcrypt_create_iv(15, MCRYPT_DEV_URANDOM);
+                $salt = random_bytes(15);
                 $user_password_hash = hash('sha512', $user_password . $salt);
 
                 $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
