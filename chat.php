@@ -22,7 +22,7 @@ header('Content-type: application/json');?>
             {
                 var userID = -1;
                 <?php  
-                    if (isset($_SESSION['user_id']))
+                    if(isset($_SESSION['user_id']))
                         echo 'userID = "' . $_SESSION['user_id'] . '";';
                 ?>
 
@@ -59,7 +59,7 @@ header('Content-type: application/json');?>
             </div>
             <div class="chat">
                 <div class="top">
-                    <div class="avatar"  >
+                    <div class="avatar">
                         <img class="images" src="./img/dp3.jpg" style = "margin-top: -70px;">
                     </div>
                     <div class="info" >
@@ -71,28 +71,36 @@ header('Content-type: application/json');?>
                 </div>
                 <ul class="messages" id="mess"></ul>
                 <div class="write-form"  ng-controller="fosctrl as ctrl">
-                    <span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
-                    <span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
-                    <span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
-                    <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-keypress="get_items(this, $event.keyCode)"></textarea>
+                    <a ng-click="insertText($event)">
+                      <span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
+                    </a>
+                    <a ng-click="insertText($event)">
+                      <span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
+                    </a>
+                    <a ng-click="insertText($event)">
+                      <span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
+                    </a>
+                    <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-change="get_items()" ng-trim="false" ng-model="message_input"></textarea>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
                     <span id="send_button" class="send" >Send</span>
-                    
+
                 </div>
             </div>
         </div>
         <script type="text/javascript">
             var app=angular.module('fosapp',[]);
-            
             json_send = {"1":"where", "2":"are"};
             app.controller('fosctrl', function($scope, $http) {
-                
-                $scope.get_items = function(element, key_code) {
-                    if(key_code == 32) {
-                        text = document.getElementById("texxt").value.replace(/[^a-zA-Z ]/g, "").split(" ")
+
+                $scope.get_items = function() {
+                    var text_entered = $scope.message_input;
+                    console.log('Entered ' + text_entered);
+                    console.log(text_entered.substr(-1))
+                    if(text_entered.substr(-1) == ' ') {
+                        text = text_entered.replace(/[^a-zA-Z ]/g, "").split(" ")
                         arr = text.filter(Boolean);
-                        
+
                         if(arr.length > 2) {
                             var to_send = {};
                             ["1", "2"].forEach((key, i) => to_send[key] = arr.slice(arr.length-2, arr.length)[i])
@@ -117,10 +125,17 @@ header('Content-type: application/json');?>
                                 });
                         }
                     }
+
+                }
+                $scope.insertText  = function(event) {
+                                var element = event.target.innerHTML
+                                $scope.message_input += element + " ";
+                                $scope.get_items();
+                                document.getElementById('texxt').focus();
                 }
             });
-            
-            
+
+
 
         </script>
     </body>
