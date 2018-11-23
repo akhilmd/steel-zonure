@@ -71,16 +71,23 @@ header('Content-type: application/json');?>
                 </div>
                 <ul class="messages" id="mess"></ul>
                 <div class="write-form"  ng-controller="fosctrl as ctrl">
-                    <a ng-click="insertText($event)">
-                      <span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
-                    </a>
-                    <a ng-click="insertText($event)">
-                      <span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
-                    </a>
-                    <a ng-click="insertText($event)">
-                      <span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
-                    </a>
-                    <textarea placeholder="Type your message" name="e" id="texxt" rows="2" ng-change="get_items()" ng-trim="false" ng-model="message_input"></textarea>
+                    <ul>
+                        <li style="padding-right: 25%;">
+                            <a ng-click="insertText($event)">
+                                <span  id="predict1" class="predict1" ng-bind="item.predict1"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="insertText($event)">
+                                <span  id="predict2" class="predict2" ng-bind="item.predict2"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="insertText($event)">
+                                <span  id="predict3" class="predict3" ng-bind="item.predict3"></span>
+                            </a>
+                        </li>
+                    </ul>
                     <i class="fa fa-picture-o"> </i> &nbsp; &nbsp; &nbsp;
                     <i class="fa fa-file-image-o"> </i>
                     <span id="send_button" class="send" >Send</span>
